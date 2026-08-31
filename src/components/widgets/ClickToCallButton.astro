@@ -1,0 +1,112 @@
+---
+interface Props {
+  wssUrl?: string;         // "wss://webrtc.yourdomain.com:7443"
+  sipDomain?: string;      // "sip.yourdomain.com"
+  sipUser?: string;        // guest extension, npr. "webrtc-guest"
+  sipPassword?: string;    // guest geslo (glej varnostno opombo spodaj)
+  targetExtension?: string;// kam gumb dejansko pokliče, npr. "9000" (AI agent)
+}
+const {
+  wssUrl = 'wss://webrtc.yourdomain.com:7443',
+  sipDomain = 'sip.yourdomain.com',
+  sipUser = 'webrtc-guest',
+  sipPassword = 'PUBLIC_GUEST_PASSWORD',
+  targetExtension = '9000',
+} = Astro.props;
+---
+<div id="c2c-widget" class="flex flex-col items-center gap-3">
+  <button id="c2c-call-btn"
+    class="rounded-full bg-primary px-6 py-3 text-white font-medium hover:opacity-90 transition"
+    data-wss={wssUrl} data-domain={sipDomain} data-user={sipUser}
+    data-pass={sipPassword} data-target={targetExtension}>
+    📞 Pokliči zdaj (test)
+  </button>
+  <p id="c2c-status" class="text-sm text-gray-500">Pripravljeno</p>
+  <button id="c2c-hangup-btn" class="hidden text-sm text-red-600 underline">Prekini klic</button>
+</div>
+
+<script>
+  // Naložen samo na klientu, ni SSR — Astro static output ga pusti pri miru.
+  import { UserAgent, Registerer, Inviter, SessionState } from 'sip.js';
+
+  const btn = document.getElementById('c2c-call-btn') as HTMLButtonElement;
+  const hangupBtn = document.getElementById('c2c-hangup-btn') as HTMLButtonElement;
+  const status = document.getElementById('c2c-status') as HTMLParagraphElement;
+
+  let userAgent: any = null;
+  let session: any = null;
+  let remoteAudio: HTMLAudioElement;
+
+  function setStatus(text: string) {
+    status.textContent = text;
+  }
+
+  async function startCall() {
+    const wssUrl = btn.dataset.wss!;
+    const domain = btn.dataset.domain!;
+    const user = btn.dataset.user!;
+    const pass = btn.dataset.pass!;
+    const target = btn.dataset.target!;
+
+    btn.disabled = true;
+    setStatus('Vzpostavljam povezavo…');
+
+    userAgent = new UserAgent({
+      uri: UserAgent.makeURI(`sip:${user}@${domain}`),
+      transportOptions: { server: wssUrl },
+      authorizationUsername: user,
+      authorizationPassword: pass,
+    });
+
+    await userAgent.start();
+
+    const target_uri = UserAgent.makeURI(`sip:${target}@${domain}`);
+    const inviter = new Inviter(userAgent, target_uri!, {
+      sessionDescriptionHandlerOptions: {
+        constraints: { audio: true, video: false },
+      },
+    });
+    session = inviter;
+
+    session.stateChange.addListener((state: SessionState) => {
+      switch (state) {
+        case SessionState.Establishing:
+          setStatus('Kličem…');
+          break;
+        case SessionState.Established:
+          setStatus('V klicu');
+          hangupBtn.classList.remove('hidden');
+          attachRemoteAudio();
+          break;
+        case SessionState.Terminated:
+          setStatus('Klic končan');
+          btn.disabled = false;
+          hangupBtn.classList.add('hidden');
+          userAgent?.stop();
+          break;
+      }
+    });
+
+    await inviter.invite();
+  }
+
+  function attachRemoteAudio() {
+    const sdh = session.sessionDescriptionHandler;
+    const pc: RTCPeerConnection = sdh.peerConnection;
+    remoteAudio = remoteAudio || new Audio();
+    remoteAudio.autoplay = true;
+    pc.getReceivers().forEach((r) => {
+      if (r.track && r.track.kind === 'audio') {
+        const stream = new MediaStream([r.track]);
+        remoteAudio.srcObject = stream;
+      }
+    });
+  }
+
+  function hangup() {
+    session?.bye?.() || session?.cancel?.();
+  }
+
+  btn.addEventListener('click', startCall);
+  hangupBtn.addEventListener('click', hangup);
+</script>
