@@ -1,6 +1,6 @@
 site:
-  name: AstroWind
-  site: 'https://astrowind.vercel.app'
+  name: AstroWind # Lahko spremeniš v ime svojega podjetja
+  site: 'https://astrowind.vercel.app' # Spremeni v svojo domeno
   base: '/'
   trailingSlash: false
 
@@ -11,7 +11,7 @@ metadata:
   title:
     default: AstroWind
     template: '%s — AstroWind'
-  description: "\U0001F680 Suitable for Startups, Small Business, Sass Websites, Professional Portfolios, Marketing Websites, Landing Pages & Blogs."
+  description: "\U0001F680 Primerno za startup podjetja, mala podjetja, SaaS spletne strani, profesionalne portfelije, tržne spletne strani, ciljne strani in bloga."
   robots:
     index: true
     follow: true
@@ -28,7 +28,7 @@ metadata:
     cardType: summary_large_image
 
 i18n:
-  language: en
+  language: sl # Spremenjeno iz 'en' v 'sl' za slovenščino
   textDirection: ltr
 
 apps:
@@ -44,19 +44,19 @@ apps:
 
     list:
       isEnabled: true
-      pathname: 'blog' # Blog main path, you can change this to "articles" (/articles)
+      pathname: 'blog' # Glavna pot do bloga (lahko spremeniš v 'clanki')
       robots:
         index: true
 
     category:
       isEnabled: true
-      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
+      pathname: 'kategorija' # Spremenjeno iz 'category' v 'kategorija'
       robots:
         index: true
 
     tag:
       isEnabled: true
-      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
+      pathname: 'oznaka' # Spremenjeno iz 'tag' v 'oznaka'
       robots:
         index: false
 
