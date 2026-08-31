@@ -1,0 +1,14 @@
+---
+interface Props {
+  number: string;       // prikazana oblika, npr. "+386 1 234 5678"
+  telHref?: string;      // za tel: link, npr. "+38612345678"
+  label?: string;
+}
+const { number, telHref = number.replace(/\s+/g, ''), label = 'Pokličite našega AI agenta' } = Astro.props;
+---
+<div class="inline-flex items-center gap-3 rounded-xl border border-gray-200 dark:border-gray-700 px-5 py-3">
+  <span class="text-sm text-gray-500 dark:text-gray-400">{label}</span>
+  <a href={`tel:${telHref}`} class="text-lg font-semibold text-primary hover:underline">
+    {number}
+  </a>
+</div>
