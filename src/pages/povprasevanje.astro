@@ -1,16 +1,15 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import { Icon } from 'astro-icon/components'; // AstroWind uporablja astro-icon za tabler ikone
+import { Icon } from 'astro-icon/components';
 
-// Tvoja Web3Forms dostopna koda (zamenjaj z svojo)
-const web3formsKey = "TVOJ_WEB3FORMS_ACCESS_KEY";
+// TUKAJ VNESI SVOJ WEB3FORMS API KLJUČ
+const web3formsKey = "TVOJ_WEB3FORMS_KLJUČ";
 ---
 
 <Layout metadata={{ title: "Povpraševanje — AstroWind" }}>
   <section class="px-4 py-16 sm:py-20">
     <div class="mx-auto max-w-3xl">
       
-      <!-- Glava strani -->
       <div class="text-center mb-12">
         <h1 class="text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
           Pripravimo vaš projekt
@@ -20,112 +19,114 @@ const web3formsKey = "TVOJ_WEB3FORMS_ACCESS_KEY";
         </p>
       </div>
 
-      <!-- Karta z obrazcem -->
       <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 p-8 sm:p-10">
         
-        <form action="https://api.web3forms.com/submit" method="POST" class="space-y-8">
+        <!-- Napredek (Progress bar) -->
+        <div class="mb-8">
+          <div class="flex justify-between mb-2 text-xs font-medium text-gray-500 dark:text-slate-400">
+            <span id="step-text">Korak 1 od 3</span>
+            <span id="step-percent">33%</span>
+          </div>
+          <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5">
+            <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-500" style="width: 33%"></div>
+          </div>
+        </div>
+
+        <form id="multi-step-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
           
-          <!-- Skriti ključ za Web3Forms -->
           <input type="hidden" name="access_key" value={web3formsKey} />
           <input type="hidden" name="subject" value="Novo povpraševanje s spletne strani" />
           <input type="hidden" name="from_name" value="AstroWind Spletna Stran" />
 
-          <!-- Osebni podatki -->
-          <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+          <!-- KORAK 1: Osebni podatki -->
+          <div class="form-step" data-step="1">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">O vas</h2>
+            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+              <div>
+                <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Ime in priimek <span class="text-red-500">*</span></label>
+                <input type="text" id="first-name" name="Ime in priimek" required class="block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="Janez Novak" />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">E-pošta <span class="text-red-500">*</span></label>
+                <input type="email" id="email" name="E-posta" required class="block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="janez@primjer.si" />
+              </div>
+            </div>
+            <div class="mt-8 flex justify-end">
+              <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors duration-200">
+                Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          <!-- KORAK 2: Podrobnosti projekta (Dropdowns) -->
+          <div class="form-step hidden" data-step="2">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Podrobnosti projekta</h2>
+            
+            <div class="space-y-6">
+              <div>
+                <label for="service" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Katera storitev vas zanima? <span class="text-red-500">*</span></label>
+                <div class="relative mt-2">
+                  <select id="service" name="Storitev" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Prosimo, izberite --</option>
+                    <option value="Spletna stran">Izdelava spletne strani (Astro/Tailwind)</option>
+                    <option value="Avtomatizacija">Poslovna avtomatizacija (Windmill)</option>
+                    <option value="CRM">Nastavitev CRM sistema (EspoCRM)</option>
+                    <option value="VoIP">Telefonska centrala (FusionPBX)</option>
+                    <option value="Celovita rešitev">Kompletna digitalna transformacija</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                    <Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <label for="budget" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Kakšen je vaš načrtovani proračun? <span class="text-red-500">*</span></label>
+                <div class="relative mt-2">
+                  <select id="budget" name="Proračun" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Prosimo, izberite --</option>
+                    <option value="do 2000€">Do 2.000 €</option>
+                    <option value="2000 - 5000€">2.000 € - 5.000 €</option>
+                    <option value="5000 - 10000€">5.000 € - 10.000 €</option>
+                    <option value="10000+ €">Več kot 10.000 €</option>
+                    <option value="Ne vem">Potrebujem svetovanje</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                    <Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="mt-8 flex justify-between">
+              <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors duration-200">
+                <Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj
+              </button>
+              <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors duration-200">
+                Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          <!-- KORAK 3: Opis in Pošiljanje -->
+          <div class="form-step hidden" data-step="3">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Kratek opis</h2>
+            
             <div>
-              <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">
-                Ime in priimek <span class="text-red-500">*</span>
-              </label>
+              <label for="about" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Povejte nam kaj več o vaših potrebah in ciljih</label>
               <div class="mt-2">
-                <input type="text" id="first-name" name="Ime in priimek" required class="block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="Janez Novak" />
+                <textarea id="about" name="Opis_projekta" rows="5" class="block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="Opis vašega projekta..."></textarea>
               </div>
             </div>
-            <div>
-              <label for="email" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">
-                E-pošta <span class="text-red-500">*</span>
-              </label>
-              <div class="mt-2">
-                <input type="email" id="email" name="E-posta" required class="block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="janez@primjer.si" />
-              </div>
-            </div>
-          </div>
 
-          <!-- Dropdown 1: Zanimanje -->
-          <div>
-            <label for="service" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">
-              Katera storitev vas zanima? <span class="text-red-500">*</span>
-            </label>
-            <div class="relative mt-2">
-              <select id="service" name="Storitev" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
-                <option value="" disabled selected>-- Prosimo, izberite --</option>
-                <option value="Spletna stran">Izdelava spletne strani (Astro/Tailwind)</option>
-                <option value="Avtomatizacija">Poslovna avtomatizacija (Windmill)</option>
-                <option value="CRM">Nastavitev CRM sistema (EspoCRM)</option>
-                <option value="VoIP">Telefonska centrala (FusionPBX)</option>
-                <option value="Celovita rešitev">Kompletna digitalna transformacija</option>
-              </select>
-              <!-- Ikona za dropdown -->
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" />
-              </div>
+            <div class="mt-8 flex justify-between">
+              <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors duration-200">
+                <Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj
+              </button>
+              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-green-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-500 transition-colors duration-200">
+                Pošlji povpraševanje <Icon name="tabler:check" class="w-4 h-4" />
+              </button>
             </div>
-          </div>
-
-          <!-- Dropdown 2: Proračun -->
-          <div>
-            <label for="budget" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">
-              Kakšen je vaš načrtovani proračun? <span class="text-red-500">*</span>
-            </label>
-            <div class="relative mt-2">
-              <select id="budget" name="Proračun" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
-                <option value="" disabled selected>-- Prosimo, izberite --</option>
-                <option value="do 2000€">Do 2.000 €</option>
-                <option value="2000 - 5000€">2.000 € - 5.000 €</option>
-                <option value="5000 - 10000€">5.000 € - 10.000 €</option>
-                <option value="10000+ €">Več kot 10.000 €</option>
-                <option value="Ne vem">Potrebujem svetovanje</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Dropdown 3: Časovni okvir -->
-          <div>
-            <label for="timeline" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">
-              Kdaj želite projekt začeti? <span class="text-red-500">*</span>
-            </label>
-            <div class="relative mt-2">
-              <select id="timeline" name="Casovni_okvir" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
-                <option value="" disabled selected>-- Prosimo, izberite --</option>
-                <option value="Takoj">Takoj / Nujno</option>
-                <option value="1 mesec">V naslednjem mesecu</option>
-                <option value="1-3 meseci">V 1 do 3 mesecih</option>
-                <option value="Samo raziskujem">Samo zbiram informacije</option>
-              </select>
-              <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
-                <Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" />
-              </div>
-            </div>
-          </div>
-
-          <!-- Dodatno besedilo -->
-          <div>
-            <label for="about" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">
-              Kratek opis vašega projekta
-            </label>
-            <div class="mt-2">
-              <textarea id="about" name="Opis_projekta" rows="4" class="block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="Povejte nam kaj več o vaših potrebah in ciljih..."></textarea>
-            </div>
-          </div>
-
-          <!-- Gumb za pošiljanje -->
-          <div class="flex items-center justify-end gap-x-6 pt-4">
-            <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 transition-colors duration-200">
-              Pošlji povpraševanje
-              <Icon name="tabler:arrow-right" class="w-4 h-4" />
-            </button>
           </div>
 
         </form>
@@ -133,4 +134,64 @@ const web3formsKey = "TVOJ_WEB3FORMS_ACCESS_KEY";
 
     </div>
   </section>
+
 </Layout>
+
+<!-- JavaScript za upravljanje korakov -->
+<script is:inline>
+  const form = document.getElementById('multi-step-form');
+  const steps = document.querySelectorAll('.form-step');
+  const progressBars = document.getElementById('progress-bar');
+  const stepText = document.getElementById('step-text');
+  const stepPercent = document.getElementById('step-percent');
+  let currentStep = 1;
+  const totalSteps = steps.length;
+
+  function updateUI() {
+    steps.forEach(step => {
+      if (parseInt(step.dataset.step) === currentStep) {
+        step.classList.remove('hidden');
+      } else {
+        step.classList.add('hidden');
+      }
+    });
+
+    const percent = Math.round((currentStep / totalSteps) * 100);
+    progressBars.style.width = percent + '%';
+    stepText.textContent = `Korak ${currentStep} od ${totalSteps}`;
+    stepPercent.textContent = percent + '%';
+  }
+
+  document.querySelectorAll('.next-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      // Preveri, ali so obvezna polja v trenutnem koraku izpolnjena
+      const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+      const requiredInputs = currentStepElement.querySelectorAll('[required]');
+      let isValid = true;
+
+      requiredInputs.forEach(input => {
+        if (!input.value) {
+          isValid = false;
+          input.classList.add('ring-red-500'); // Rdeča obroba, če ni izpolnjeno
+          input.reportValidity(); // Brskalnik prikaže napako
+        } else {
+          input.classList.remove('ring-red-500');
+        }
+      });
+
+      if (isValid && currentStep < totalSteps) {
+        currentStep++;
+        updateUI();
+      }
+    });
+  });
+
+  document.querySelectorAll('.prev-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateUI();
+      }
+    });
+  });
+</script>
