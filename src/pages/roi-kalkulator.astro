@@ -1,8 +1,6 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
 import { Icon } from 'astro-icon/components';
-
-const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webhookom
 ---
 
 <Layout metadata={{ title: "B2B AI Assessment & ROI Kalkulator — AstroWind" }}>
@@ -11,19 +9,19 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
       
       <div class="text-center mb-12">
         <span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 text-sm font-medium text-blue-700 dark:text-blue-300 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-300/10">
-          B2B AI Lifecycle System
+          Celovita B2B AI Analiza
         </span>
         <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-          Analiza pripravljenosti na AI in izračun ROI
+          Pravi ROI: Prihodki, Stroški in Odgovornost
         </h1>
         <p class="mt-4 text-lg leading-8 text-gray-600 dark:text-slate-400">
-          Sistematično preverimo vašo infrastrukturo, varnost in procese. Na koncu prejmete PDF s predlogom rešitve in pravim izračunom donosnosti.
+          Avtomatizacija ni le prihranek časa. Zmanjšuje napake, nadomešča draga orodja, krije bolniške in povečuje prihodke iz starih stikov ter referalov.
         </p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         
-        <!-- LEVA STRAN: VPRASALNIK (2/3 prostora) -->
+        <!-- LEVA STRAN: VPRASALNIK -->
         <div class="lg:col-span-2 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 p-8 sm:p-10">
           
           <div class="mb-8">
@@ -37,11 +35,11 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
           </div>
 
           <form id="multi-step-form" class="space-y-6">
-            <input type="hidden" name="subject" value="B2B AI Assessment" />
+            <input type="hidden" name="subject" value="B2B Celovita AI Analiza" />
 
-            <!-- KORAK 1: Lead Capture & CRM -->
+            <!-- KORAK 1 -->
             <div class="form-step" data-step="1">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">1. Upravljanje stikov (CRM)</h2>
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">1. Novi Poslovni Stiki</h2>
               <div class="space-y-6">
                 <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                   <div>
@@ -54,22 +52,13 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
                   </div>
                 </div>
                 <div>
-                  <label for="crm" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kako trenutno upravljate s stiki in CRM podatki? <span class="text-red-500">*</span></label>
-                  <select id="crm" name="Trenutni_CRM" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
-                    <option value="" disabled selected>-- Izberite --</option>
-                    <option value="Excel/Papir">Excel ali papir</option>
-                    <option value="Brez CRM-a">Še nimamo urejenega CRM-a</option>
-                    <option value="EspoCRM">EspoCRM</option>
-                    <option value="Drugi SaaS">Drugi SaaS (HubSpot, Pipedrive...)</option>
-                  </select>
+                  <label for="value" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Povprečna vrednost vaše storitve/produkta (€)? <span class="text-red-500">*</span></label>
+                  <input type="number" id="value" name="Povprecna_Vrednost" value="500" min="1" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
                 </div>
                 <div>
-                  <label for="nurturing" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate avtomatske nurturing sekvence za stranke?</label>
-                  <select id="nurturing" name="Nurturing_Sekvence" class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
-                    <option value="Ne" selected>Ne, delamo ročno</option>
-                    <option value="Delno">Delno, a nepovezano</option>
-                    <option value="Da">Da, vse je avtomatizirano</option>
-                  </select>
+                  <label for="existing_customers" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko AKTIVNIH strank imate trenutno? <span class="text-red-500">*</span></label>
+                  <input type="number" id="existing_customers" name="Stevilo_Strank" value="50" min="0" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+                  <p class="mt-1 text-xs text-gray-500">* Uporablja se za izračun prihodka iz referalov in starih stikov.</p>
                 </div>
               </div>
               <div class="mt-8 flex justify-end">
@@ -77,9 +66,38 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
               </div>
             </div>
 
-            <!-- KORAK 2: Telefonija & Voice (FusionPBX) -->
+            <!-- KORAK 2 -->
             <div class="form-step hidden" data-step="2">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">2. Telefonija in Glas (VoIP)</h2>
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">2. Trenutni Stroški in Operativa</h2>
+              <div class="space-y-6">
+                <div>
+                  <label for="tool_cost" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko mesečno porabite za SaaS orodja (CRM, Klicne centere, Mailchimp...)? <span class="text-red-500">*</span></label>
+                  <input type="number" id="tool_cost" name="Stroski_Orodij" value="300" min="0" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+                </div>
+                <div>
+                  <label for="manual_work" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko ur dnevno porabite za ročno vpisovanje podatkov? <span class="text-red-500">*</span></label>
+                  <input type="number" id="manual_work" name="Rocno_Vpisovanje" value="2" min="0" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+                </div>
+                <div>
+                  <label for="crm" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kako trenutno upravljate s stiki? <span class="text-red-500">*</span></label>
+                  <select id="crm" name="Trenutni_CRM" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Izberite --</option>
+                    <option value="Excel/Papir">Excel ali papir (največ napak)</option>
+                    <option value="Brez CRM-a">Še nimamo urejenega CRM-a</option>
+                    <option value="EspoCRM">EspoCRM</option>
+                    <option value="Drugi SaaS">Drugi SaaS</option>
+                  </select>
+                </div>
+              </div>
+              <div class="mt-8 flex justify-between">
+                <button type="button" class="prev-btn btn-secondary"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
+                <button type="button" class="next-btn btn-primary">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
+              </div>
+            </div>
+
+            <!-- KORAK 3 -->
+            <div class="form-step hidden" data-step="3">
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">3. Telefonija in Komunikacija</h2>
               <div class="space-y-6">
                 <div>
                   <label for="voip" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate urejeno lastno telefonsko centralo (FusionPBX)? <span class="text-red-500">*</span></label>
@@ -94,14 +112,18 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
                   <label for="missed_calls" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kaj se zgodi, ko zgrešite klic? <span class="text-red-500">*</span></label>
                   <select id="missed_calls" name="Zgreseni_Klici" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
-                    <option value="Voicemail">Pusti voicemail, ki se ročno obdela</option>
-                    <option value="Nazaj">Operater pokliče nazaj, ko ima čas</option>
-                    <option value="AI Transkripcija">Že imamo AI transkripcijo in obvestila</option>
+                    <option value="Voicemail">Pusti voicemail (pogosto izgubljeno)</option>
+                    <option value="Nazaj">Operater pokliče nazaj</option>
+                    <option value="AI Transkripcija">Že imamo AI obvestila</option>
                   </select>
                 </div>
                 <div>
-                  <label for="manual_work" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko ur dnevno porabite za ročno vpisovanje podatkov iz klicev/sporočil? <span class="text-red-500">*</span></label>
-                  <input type="number" id="manual_work" name="Rocno_Vpisovanje" value="2" min="0" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+                  <label for="nurturing" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate avtomatske nurturing sekvence za stranke?</label>
+                  <select id="nurturing" name="Nurturing_Sekvence" class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="Ne" selected>Ne, delamo ročno</option>
+                    <option value="Delno">Delno, a nepovezano</option>
+                    <option value="Da">Da, vse je avtomatizirano</option>
+                  </select>
                 </div>
               </div>
               <div class="mt-8 flex justify-between">
@@ -110,12 +132,12 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
               </div>
             </div>
 
-            <!-- KORAK 3: Infrastruktura & Varnost (Hetzner/Cloudflare) -->
-            <div class="form-step hidden" data-step="3">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">3. Infrastruktura in Varnost</h2>
+            <!-- KORAK 4 -->
+            <div class="form-step hidden" data-step="4">
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">4. Infrastruktura in Varnost</h2>
               <div class="space-y-6">
                 <div>
-                  <label for="hosting" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kje gostujete svojo poslovno infrastrukturo? <span class="text-red-500">*</span></label>
+                  <label for="hosting" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kje gostujete svojo infrastrukturo? <span class="text-red-500">*</span></label>
                   <select id="hosting" name="Hosting" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Lokalni server">Lokalni server v pisarni</option>
@@ -141,13 +163,6 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
                     <option value="Ne">Ne, dostopi so ad hoc</option>
                   </select>
                 </div>
-                <div>
-                  <label for="dashboard" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate Customer Dashboard za stranke (vidijo stanje in uporabo)?</label>
-                  <select id="dashboard" name="Customer_Dashboard" class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
-                    <option value="Ne" selected>Ne</option>
-                    <option value="Da">Da</option>
-                  </select>
-                </div>
               </div>
               <div class="mt-8 flex justify-between">
                 <button type="button" class="prev-btn btn-secondary"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
@@ -155,12 +170,12 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
               </div>
             </div>
 
-            <!-- KORAK 4: Pravno, SLA & GDPR (DPA) -->
-            <div class="form-step hidden" data-step="4">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">4. Pogodbe, SLA in GDPR</h2>
+            <!-- KORAK 5 -->
+            <div class="form-step hidden" data-step="5">
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">5. Pogodbe, SLA in GDPR</h2>
               <div class="space-y-6">
                 <div>
-                  <label for="dpa" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate urejene pogodbe o obdelavi podatkov (DPA) za pod-obdelovalce (Hetzner, Cloudflare...)? <span class="text-red-500">*</span></label>
+                  <label for="dpa" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate urejene pogodbe o obdelavi podatkov (DPA)? <span class="text-red-500">*</span></label>
                   <select id="dpa" name="DPA_Pogodbe" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Da">Da, za vse ponudnike</option>
@@ -169,15 +184,15 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
                   </select>
                 </div>
                 <div>
-                  <label for="retention" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate jasne retention roke za posnetke, transkripte, loge in backupe? <span class="text-red-500">*</span></label>
+                  <label for="retention" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate jasne retention roke za posnetke in loge? <span class="text-red-500">*</span></label>
                   <select id="retention" name="Retention_Roke" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Da">Da, imamo politiko hrambe</option>
-                    <option value="Ne">Ne, hranimo vse neskončno dolgo ali naključno</option>
+                    <option value="Ne">Ne, hranimo vse neskončno dolgo</option>
                   </select>
                 </div>
                 <div>
-                  <label for="exit_process" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate definiran "exit" proces (izvoz/predaja podatkov ob prekinitvi)?</label>
+                  <label for="exit_process" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate definiran "exit" proces (izvoz/predaja ob prekinitvi)?</label>
                   <select id="exit_process" name="Exit_Proces" class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="Ne" selected>Ne, nismo razmišljali o tem</option>
                     <option value="Da">Da, pogodbeno je definirano</option>
@@ -187,7 +202,7 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
                   <label for="sla" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate pogodbeno določen SLA in incidentni proces? <span class="text-red-500">*</span></label>
                   <select id="sla" name="SLA_Incident" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
-                    <option value="Jasen SLA">Da, imamo jasen SLA in incidentni proces</option>
+                    <option value="Jasen SLA">Da, imamo jasen SLA</option>
                     <option value="Ad hoc">Rešujemo ad hoc</option>
                     <option value="Brez">Brez SLA</option>
                   </select>
@@ -199,41 +214,10 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
               </div>
             </div>
 
-            <!-- KORAK 5: AI Pripravljenost & Onboarding -->
-            <div class="form-step hidden" data-step="5">
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">5. AI in Procesi</h2>
-              <div class="space-y-6">
-                <div>
-                  <label for="value" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Povprečna vrednost vaše storitve/produkta (€)? <span class="text-red-500">*</span></label>
-                  <input type="number" id="value" name="Povprecna_Vrednost" value="500" min="1" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
-                </div>
-                <div>
-                  <label for="ai_rag" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali bi želeli, da AI samodejno odgovarja na pogosta vprašanja (RAG)? <span class="text-red-500">*</span></label>
-                  <select id="ai_rag" name="AI_RAG" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
-                    <option value="" disabled selected>-- Izberite --</option>
-                    <option value="Da">Da, to bi zmanjšalo obremenitev</option>
-                    <option value="Morda">Morda, potrebujem več informacij</option>
-                    <option value="Ne">Ne, imamo dovolj s človeško podporo</option>
-                  </select>
-                </div>
-                <div>
-                  <label for="onboarding" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate standardiziran onboarding proces za nove stranke?</label>
-                  <select id="onboarding" name="Onboarding" class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
-                    <option value="Ne" selected>Ne, vsakokrat drugače</option>
-                    <option value="Da">Da, imamo pisno dokumentacijo</option>
-                  </select>
-                </div>
-              </div>
-              <div class="mt-8 flex justify-between">
-                <button type="button" class="prev-btn btn-secondary"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
-                <button type="button" class="next-btn btn-primary">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
-              </div>
-            </div>
-
-            <!-- KORAK 6: Kontakt in PDF -->
+            <!-- KORAK 6 -->
             <div class="form-step hidden" data-step="6">
               <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">6. Prejmite PDF analizo</h2>
-              <p class="text-sm text-gray-500 dark:text-slate-400 mb-6">Na podlagi vaših odgovorov vam bomo na e-mail samodejno poslali PDF s konkretnim izračunom prihranka in predlogom naslednjih korakov.</p>
+              <p class="text-sm text-gray-500 dark:text-slate-400 mb-6">Na podlagi vaših odgovorov vam bomo na e-mail samodejno poslali PDF s celovitim izračunom prihrankov, povečanih prihodkov in predlogom naslednjih korakov.</p>
               
               <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                 <div>
@@ -265,43 +249,73 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
           </form>
         </div>
 
-        <!-- DESNA STRAN: ROI KALKULATOR (1/3 prostora, Sticky) -->
+        <!-- DESNA STRAN: CELI ROI KALKULATOR (Sticky) -->
         <div class="lg:col-span-1">
-          <div class="bg-slate-900 dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-8 text-white sticky top-8 h-fit">
-            <h2 class="text-xl font-bold mb-6">Pravi ROI izračun</h2>
+          <div class="bg-slate-900 dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-6 text-white sticky top-8 h-fit">
+            <h2 class="text-xl font-bold mb-6">Celovit letni ROI</h2>
             
-            <div class="space-y-4">
-              <!-- Strošek naložbe -->
+            <div class="space-y-6">
+              <!-- A. PRIHODKI -->
+              <div>
+                <h3 class="text-sm font-bold text-green-400 uppercase tracking-wider mb-3 border-b border-slate-700 pb-2">A. Povečani Prihodki</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">Povrnjeni izgubljeni leadi (hitrost)</span>
+                    <span id="rev-leads" class="font-bold text-green-400">0 €</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">Referali in stiki (zadovoljstvo)</span>
+                    <span id="rev-referrals" class="font-bold text-green-400">0 €</span>
+                  </div>
+                  <div class="flex justify-between pt-2 border-t border-slate-800">
+                    <span class="text-slate-300 font-medium">Skupni novi prihodki</span>
+                    <span id="rev-total" class="font-extrabold text-white">0 €</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- B. STROŠKI -->
+              <div>
+                <h3 class="text-sm font-bold text-blue-400 uppercase tracking-wider mb-3 border-b border-slate-700 pb-2">B. Zmanjšani Stroški</h3>
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">Konsolidacija orodij (SaaS)</span>
+                    <span id="sav-tools" class="font-bold text-blue-400">0 €</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">Prihranjen čas (avtomatizacija)</span>
+                    <span id="sav-time" class="font-bold text-blue-400">0 €</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-slate-400">Manj napak & bolniški (uptime)</span>
+                    <span id="sav-errors" class="font-bold text-blue-400">0 €</span>
+                  </div>
+                  <div class="flex justify-between pt-2 border-t border-slate-800">
+                    <span class="text-slate-300 font-medium">Skupni prihranki</span>
+                    <span id="sav-total" class="font-extrabold text-white">0 €</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- C. KONČNI ROI -->
               <div class="bg-slate-800 p-4 rounded-lg">
-                <p class="text-sm text-slate-400">Letna vrednost naložbe (AI Sistem & SLA)</p>
-                <p id="investment-cost" class="text-2xl font-bold text-white">12.000 €</p>
-              </div>
-
-              <!-- Povratek -->
-              <div>
-                <p class="text-sm text-slate-400">Povrnjeni izgubljeni leadi (AI takojšen odgovor)</p>
-                <p id="extra-revenue" class="text-xl font-bold text-green-400">0 €/leto</p>
-              </div>
-
-              <div>
-                <p class="text-sm text-slate-400">Prihranjen čas operativne ekipe (Avtomatizacija)</p>
-                <p id="saved-money" class="text-xl font-bold text-green-400">0 €/leto</p>
-              </div>
-
-              <div class="pt-4 border-t border-slate-700">
-                <p class="text-sm text-slate-400">Skupni letni povratek (Return)</p>
-                <p id="total-return" class="text-2xl font-bold text-white">0 €/leto</p>
-              </div>
-
-              <!-- KONČNI ROI -->
-              <div class="mt-4 bg-green-900/30 border border-green-500 p-4 rounded-lg text-center">
-                <p class="text-sm text-green-300">Neto dobiček (Profit)</p>
-                <p id="net-profit" class="text-3xl font-extrabold text-white mb-2">0 €</p>
-                <p class="text-sm text-green-300">ROI (Return on Investment)</p>
-                <p id="roi-percentage" class="text-5xl font-extrabold text-green-400">0 %</p>
+                <div class="flex justify-between text-sm mb-2">
+                  <span class="text-slate-400">Letni strošek AI sistema</span>
+                  <span class="font-bold text-red-400">- 12.000 €</span>
+                </div>
+                <div class="flex justify-between text-lg mb-4 pb-4 border-b border-slate-700">
+                  <span class="text-slate-300 font-medium">Skupni letni povratek</span>
+                  <span id="total-return" class="font-extrabold text-white">0 €</span>
+                </div>
+                
+                <p class="text-sm text-green-300 text-center mb-1">Neto dobiček (Profit)</p>
+                <p id="net-profit" class="text-3xl font-extrabold text-white text-center mb-4">0 €</p>
+                
+                <p class="text-sm text-green-300 text-center mb-1">ROI (Return on Investment)</p>
+                <p id="roi-percentage" class="text-5xl font-extrabold text-green-400 text-center">0 %</p>
               </div>
             </div>
-            <p class="mt-4 text-xs text-slate-500">* Izračun se samodejno posodablja, medtem ko izpolnjujete obrazec.</p>
+            <p class="mt-4 text-xs text-slate-500">* Izračun upošteva stroške orodij, delovni čas, napake in nove prihodke.</p>
           </div>
         </div>
 
@@ -316,161 +330,192 @@ const webhookUrl = "TVOJ_WEBHOOK_URL"; // Nadomesti s svojim Windmill/Make webho
 </style>
 
 <script is:inline>
-  // --- LOGIKA ZA ČAROVNIK (Multi-step) ---
-  const form = document.getElementById('multi-step-form');
-  const steps = document.querySelectorAll('.form-step');
-  const progressBars = document.getElementById('progress-bar');
-  const stepText = document.getElementById('step-text');
-  const stepPercent = document.getElementById('step-percent');
-  let currentStep = 1;
-  const totalSteps = steps.length;
+  // ZAGOTOVIMO, DA SE SKRIPTA IZVEDE ŠELE, KO JE STRAN NALOŽENA
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    // --- LOGIKA ČAROVNIKA ---
+    const form = document.getElementById('multi-step-form');
+    const steps = document.querySelectorAll('.form-step');
+    const progressBars = document.getElementById('progress-bar');
+    const stepText = document.getElementById('step-text');
+    const stepPercent = document.getElementById('step-percent');
+    let currentStep = 1;
+    const totalSteps = steps.length;
 
-  function updateUI() {
-    steps.forEach(step => {
-      if (parseInt(step.dataset.step) === currentStep) step.classList.remove('hidden');
-      else step.classList.add('hidden');
-    });
-    const percent = Math.round((currentStep / totalSteps) * 100);
-    progressBars.style.width = percent + '%';
-    stepText.textContent = `Korak ${currentStep} od ${totalSteps}`;
-    stepPercent.textContent = percent + '%';
-  }
+    function updateUI() {
+      steps.forEach(step => {
+        if (parseInt(step.dataset.step) === currentStep) step.classList.remove('hidden');
+        else step.classList.add('hidden');
+      });
+      const percent = Math.round((currentStep / totalSteps) * 100);
+      progressBars.style.width = percent + '%';
+      stepText.textContent = `Korak ${currentStep} od ${totalSteps}`;
+      stepPercent.textContent = percent + '%';
+    }
 
-  document.querySelectorAll('.next-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
-      const requiredInputs = currentStepElement.querySelectorAll('[required]');
-      let isValid = true;
-      requiredInputs.forEach(input => {
-        if (!input.value) {
-          isValid = false;
-          input.classList.add('ring-red-500');
-          input.reportValidity();
-        } else {
-          input.classList.remove('ring-red-500');
+    document.querySelectorAll('.next-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+        const requiredInputs = currentStepElement.querySelectorAll('[required]');
+        let isValid = true;
+        requiredInputs.forEach(input => {
+          if (!input.value) {
+            isValid = false;
+            input.classList.add('ring-red-500');
+            input.reportValidity();
+          } else {
+            input.classList.remove('ring-red-500');
+          }
+        });
+        if (isValid && currentStep < totalSteps) {
+          currentStep++;
+          updateUI();
+          window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
         }
       });
-      if (isValid && currentStep < totalSteps) {
-        currentStep++;
-        updateUI();
-        window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
-      }
     });
-  });
 
-  document.querySelectorAll('.prev-btn').forEach(button => {
-    button.addEventListener('click', () => {
-      if (currentStep > 1) {
-        currentStep--;
-        updateUI();
-        window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
-      }
-    });
-  });
-
-  // --- PRAVA ROI LOGIKA ---
-  const leadsInput = document.getElementById('leads');
-  const responseTimeInput = document.getElementById('response_time');
-  const manualWorkInput = document.getElementById('manual_work');
-  const valueInput = document.getElementById('value');
-
-  const extraRevenueEl = document.getElementById('extra-revenue');
-  const savedMoneyEl = document.getElementById('saved-money');
-  const totalReturnEl = document.getElementById('total-return');
-  const netProfitEl = document.getElementById('net-profit');
-  const roiPercentageEl = document.getElementById('roi-percentage');
-
-  // Fiksni parametri za izračun (lahko jih prilagodiš svoji ceni)
-  const SYSTEM_ANNUAL_COST = 12000; // Letni strošek tvojega sistema (npr. 1000€/mesec)
-  const HOURLY_RATE = 25; // Vrednost ure delavca v €
-
-  function formatCurrency(num) {
-    return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(num);
-  }
-
-  function calculateROI() {
-    const leads = parseFloat(leadsInput.value) || 0;
-    const responseTime = parseFloat(responseTimeInput.value) || 0;
-    const manualHours = parseFloat(manualWorkInput.value) || 0;
-    const value = parseFloat(valueInput.value) || 0;
-
-    // 1. Izgubljeni leadi: Če odgovor traja >1 uro, izgubimo del leadov. AI odgovori v 1 minuti.
-    let lossRate = 0;
-    if (responseTime > 1) {
-      lossRate = Math.min(0.8, (responseTime - 1) * 0.15); // 15% izgube za vsako uro nad 1, max 80%
-    }
-    const annualLostLeads = (leads * lossRate) * 12;
-    const annualExtraRevenue = annualLostLeads * value;
-
-    // 2. Prihranjen čas: Avtomatizacija ročnega vnosa (80% prihranka) + 5 minut na lead (AI odgovori)
-    const annualSavedHours = (manualHours * 0.8 * 250) + (leads * 12 * (5 / 60));
-    const annualSavedMoney = annualSavedHours * HOURLY_RATE;
-
-    // 3. Skupni povratek
-    const totalReturn = annualExtraRevenue + annualSavedMoney;
-
-    // 4. PRAVI ROI
-    const netProfit = totalReturn - SYSTEM_ANNUAL_COST;
-    const roiPercentage = SYSTEM_ANNUAL_COST > 0 ? Math.round((netProfit / SYSTEM_ANNUAL_COST) * 100) : 0;
-
-    // Posodobitev prikaza
-    extraRevenueEl.textContent = formatCurrency(annualExtraRevenue);
-    savedMoneyEl.textContent = formatCurrency(annualSavedMoney);
-    totalReturnEl.textContent = formatCurrency(totalReturn);
-    netProfitEl.textContent = formatCurrency(netProfit);
-    roiPercentageEl.textContent = roiPercentage + ' %';
-    
-    // Barva ROI % glede na donosnost
-    roiPercentageEl.className = roiPercentage >= 100 
-      ? 'text-5xl font-extrabold text-green-400' 
-      : 'text-5xl font-extrabold text-yellow-400';
-  }
-
-  document.querySelectorAll('.roi-input').forEach(input => {
-    input.addEventListener('input', calculateROI);
-  });
-  calculateROI(); // Init calculation
-
-  // --- SUBMIT TO WEBHOOK ---
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const submitBtn = form.querySelector('button[type="submit"]');
-    submitBtn.disabled = true;
-    submitBtn.innerText = 'Generiram poročilo...';
-
-    const formData = new FormData(form);
-    const payload = Object.fromEntries(formData);
-    
-    // Dodamo pravi ROI izračun za PDF
-    payload.Izracun_ROI = {
-      letna_vrednost_nalozbe: SYSTEM_ANNUAL_COST + ' €',
-      povrnjeni_izgubljeni_leadi: extraRevenueEl.innerText,
-      prihranjen_cas_operative: savedMoneyEl.innerText,
-      skupni_letni_povratek: totalReturnEl.innerText,
-      neto_dobicek: netProfitEl.innerText,
-      roi_procent: roiPercentageEl.innerText
-    };
-
-    try {
-      const response = await fetch('TVOJ_WEBHOOK_URL', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+    document.querySelectorAll('.prev-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentStep > 1) {
+          currentStep--;
+          updateUI();
+          window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+        }
       });
-      if (response.ok) {
-        alert('Hvala! PDF poročilo s pravim izračunom ROI vam bomo poslali na e-mail.');
-        form.reset();
-        currentStep = 1;
-        updateUI();
-        calculateROI();
-      } else {
-        alert('Napaka pri pošiljanju.');
-      }
-    } catch (error) {
-      alert('Napaka povezave.');
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.innerText = 'Generiraj PDF poročilo';
+    });
+
+    // --- CELI ROI MODEL ---
+    const leadsInput = document.getElementById('leads');
+    const responseTimeInput = document.getElementById('response_time');
+    const valueInput = document.getElementById('value');
+    const existingCustomersInput = document.getElementById('existing_customers');
+    const toolCostInput = document.getElementById('tool_cost');
+    const manualWorkInput = document.getElementById('manual_work');
+
+    const revLeadsEl = document.getElementById('rev-leads');
+    const revReferralsEl = document.getElementById('rev-referrals');
+    const revTotalEl = document.getElementById('rev-total');
+    const savToolsEl = document.getElementById('sav-tools');
+    const savTimeEl = document.getElementById('sav-time');
+    const savErrorsEl = document.getElementById('sav-errors');
+    const savTotalEl = document.getElementById('sav-total');
+    const totalReturnEl = document.getElementById('total-return');
+    const netProfitEl = document.getElementById('net-profit');
+    const roiPercentageEl = document.getElementById('roi-percentage');
+
+    const SYSTEM_ANNUAL_COST = 12000;
+    const HOURLY_RATE = 25;
+
+    function formatCurrency(num) {
+      return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(num);
     }
+
+    function calculateROI() {
+      const leads = parseFloat(leadsInput.value) || 0;
+      const responseTime = parseFloat(responseTimeInput.value) || 0;
+      const value = parseFloat(valueInput.value) || 0;
+      const existingCusts = parseFloat(existingCustomersInput.value) || 0;
+      const toolCost = parseFloat(toolCostInput.value) || 0;
+      const manualHours = parseFloat(manualWorkInput.value) || 0;
+
+      // A. PRIHODKI
+      let lossRate = 0;
+      if (responseTime > 1) lossRate = Math.min(0.8, (responseTime - 1) * 0.15);
+      const annualRecoveredRev = (leads * lossRate) * 12 * value;
+      const annualReferralRev = existingCusts * 0.1 * value * 2; 
+      const totalRev = annualRecoveredRev + annualReferralRev;
+
+      // B. STROŠKI
+      const annualToolSavings = toolCost * 12 * 0.80;
+      const annualTimeSavings = ((manualHours * 0.8 * 250) + (leads * 12 * (5 / 60))) * HOURLY_RATE;
+      const annualErrorSavings = (leads * 12 * value * 0.02) + 1000;
+      const totalSav = annualToolSavings + annualTimeSavings + annualErrorSavings;
+
+      // C. SKUPNO
+      const totalReturn = totalRev + totalSav;
+      const netProfit = totalReturn - SYSTEM_ANNUAL_COST;
+      const roiPercentage = SYSTEM_ANNUAL_COST > 0 ? Math.round((netProfit / SYSTEM_ANNUAL_COST) * 100) : 0;
+
+      // POSODOBITEV DOM
+      revLeadsEl.textContent = formatCurrency(annualRecoveredRev);
+      revReferralsEl.textContent = formatCurrency(annualReferralRev);
+      revTotalEl.textContent = formatCurrency(totalRev);
+
+      savToolsEl.textContent = formatCurrency(annualToolSavings);
+      savTimeEl.textContent = formatCurrency(annualTimeSavings);
+      savErrorsEl.textContent = formatCurrency(annualErrorSavings);
+      savTotalEl.textContent = formatCurrency(totalSav);
+
+      totalReturnEl.textContent = formatCurrency(totalReturn);
+      netProfitEl.textContent = formatCurrency(netProfit);
+      roiPercentageEl.textContent = roiPercentage + ' %';
+      
+      roiPercentageEl.className = roiPercentage >= 100 
+        ? 'text-5xl font-extrabold text-green-400 text-center' 
+        : 'text-5xl font-extrabold text-yellow-400 text-center';
+    }
+
+    // PRIPRAVI EVENT LISTENERJE NA VSE VNOSE ZA LIVE POSODOBITEV
+    const roiInputs = document.querySelectorAll('.roi-input');
+    roiInputs.forEach(input => {
+      input.addEventListener('input', calculateROI);
+      input.addEventListener('change', calculateROI);
+    });
+
+    // POŽENI IZRAČUN OB NALAGANJU
+    calculateROI(); 
+
+    // --- WEBHOOK SUBMIT ---
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = form.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.innerText = 'Generiram poročilo...';
+
+      const formData = new FormData(form);
+      const payload = Object.fromEntries(formData);
+      
+      payload.Izracun_ROI = {
+        prihodki: {
+          povrnjeni_leadi: revLeadsEl.innerText,
+          referali: revReferralsEl.innerText,
+          skupno: revTotalEl.innerText
+        },
+        prihranki: {
+          orodja: savToolsEl.innerText,
+          cas: savTimeEl.innerText,
+          napake_bolniske: savErrorsEl.innerText,
+          skupno: savTotalEl.innerText
+        },
+        letni_strosek_sistema: SYSTEM_ANNUAL_COST + ' €',
+        skupni_povratek: totalReturnEl.innerText,
+        neto_dobicek: netProfitEl.innerText,
+        roi_procent: roiPercentageEl.innerText
+      };
+
+      try {
+        // TUKAJ VNESI SVOJ WEBHOOK URL
+        const response = await fetch('TVOJ_WEBHOOK_URL', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        if (response.ok) {
+          alert('Hvala! PDF s celovito analizo vam bomo poslali na e-mail.');
+          form.reset();
+          currentStep = 1;
+          updateUI();
+          calculateROI();
+        } else {
+          alert('Napaka pri pošiljanju.');
+        }
+      } catch (error) {
+        alert('Napaka povezave.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = 'Generiraj PDF poročilo';
+      }
+    });
   });
 </script>
