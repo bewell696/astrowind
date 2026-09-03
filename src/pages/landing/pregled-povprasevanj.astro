@@ -1,0 +1,201 @@
+---
+// src/pages/landing/pregled-povprasevanj.astro
+// Preveri natančno ime/pot Layout komponente v svojem AstroWind projektu.
+// Običajno je to '~/layouts/PageLayout.astro' ali '~/layouts/Layout.astro'.
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Koliko povpraševanj ste zamudili ta mesec? | Brezplačen pregled',
+  description:
+    'Brezplačen 20-minutni pogovor: pregledamo, kako pri vas potujejo povpraševanja in kje se najpogosteje izgubljajo.',
+};
+
+const calendlyUrl = 'https://calendly.com/tvoje-ime/pregled-povprasevanj'; // zamenjaj z dejanskim linkom
+const formUrl = 'https://tally.so/r/tvoj-form-id'; // zamenjaj z dejanskim Tally/Typeform linkom
+---
+
+<Layout metadata={metadata}>
+
+  <!-- ============ 1. HERO ============ -->
+  <section class="bg-slate-900 text-white">
+    <div class="max-w-4xl mx-auto px-6 py-24 text-center">
+      <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
+        Koliko telefonskih klicev, e-mailov in povpraševanj z vaše
+        spletne strani je v zadnjem mesecu ostalo brez odgovora —
+        pa sploh niste vedeli, da so prišla?
+      </h1>
+      <p class="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
+        Izpolnite 5-minutni vprašalnik in v enem dnevu dobite kratko
+        oceno, kje pri vas najverjetneje uidejo povpraševanja —
+        brez obveznosti.
+      </p>
+      <a
+        href={formUrl}
+        target="_blank"
+        rel="noopener"
+        class="inline-block bg-amber-500 hover:bg-amber-400 text-slate-900 font-semibold text-lg px-8 py-4 rounded-lg transition"
+      >
+        Izpolni brezplačni vprašalnik
+      </a>
+      <p class="text-sm text-slate-400 mt-4">
+        5 minut · brez obveznosti · odgovor v 24 urah
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ 2. PROBLEM / STORY ============ -->
+  <section class="max-w-3xl mx-auto px-6 py-20">
+    <h2 class="text-2xl md:text-3xl font-bold mb-6 text-slate-900">
+      "Pri nas se to ne dogaja."
+    </h2>
+    <p class="text-lg text-slate-600 leading-relaxed mb-4">
+      Pred časom sem govoril z direktorjem enega od kovinarskih
+      podjetij v Podravju. Rekel je: <em>"Mi se hitro odzovemo,
+      pri nas povpraševanja ne izginejo."</em>
+    </p>
+    <p class="text-lg text-slate-600 leading-relaxed mb-4">
+      Ko sva pogledala, kako dejansko sledijo povpraševanjem —
+      e-maili v skupnem predalu, klici na osebne mobilne telefone,
+      obrazec na strani, ki ga nihče redno ne preverja — je
+      ugotovil, da nima načina, da bi to sploh preveril.
+    </p>
+    <p class="text-lg text-slate-600 leading-relaxed">
+      Ni vedel, koliko povpraševanj pride, kdo jih prevzame in ali
+      je bil narejen naslednji korak. To ni bila napaka prodajne
+      ekipe — noben sistem ni bil zadolžen, da to opazi.
+    </p>
+  </section>
+
+  <!-- ============ 3. KAKO DELUJE ============ -->
+  <section class="bg-slate-50 py-20">
+    <div class="max-w-4xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-bold mb-10 text-center text-slate-900">
+        Kako deluje brezplačna ocena
+      </h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
+          <div class="text-amber-500 text-3xl font-bold mb-3">1</div>
+          <h3 class="font-semibold text-lg mb-2">Izpolnite vprašalnik</h3>
+          <p class="text-slate-600">
+            5 minut, 8 vprašanj o tem, kako danes obravnavate
+            povpraševanja — brez tehničnega žargona.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
+          <div class="text-amber-500 text-3xl font-bold mb-3">2</div>
+          <h3 class="font-semibold text-lg mb-2">Pregledamo odgovore</h3>
+          <p class="text-slate-600">
+            Ročno pregledamo vaše odgovore in jih primerjamo z
+            vzorci, ki jih vidimo pri podobnih podjetjih.
+          </p>
+        </div>
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-slate-100">
+          <div class="text-amber-500 text-3xl font-bold mb-3">3</div>
+          <h3 class="font-semibold text-lg mb-2">Prejmete oceno</h3>
+          <p class="text-slate-600">
+            V 24 urah dobite kratko e-mail poročilo s tremi
+            opažanji. Če je smiselno, predlagamo tudi kratek klic.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4. PONUDBA ============ -->
+  <section class="max-w-2xl mx-auto px-6 py-20 text-center">
+    <h2 class="text-2xl md:text-3xl font-bold mb-4 text-slate-900">
+      Brezplačna ocena: kje izgubljate povpraševanja
+    </h2>
+    <p class="text-lg text-slate-600 mb-8 leading-relaxed">
+      Izpolnite kratek vprašalnik. Če je smiselno nadaljevati,
+      vam v e-mailu predlagamo 20-minutni pogovor po telefonu
+      ali video klicu — brez obveznosti.
+    </p>
+    <ul class="text-left max-w-md mx-auto mb-10 space-y-3 text-slate-700">
+      <li class="flex gap-3">
+        <span class="text-amber-500 font-bold">✓</span>
+        5-minutni vprašalnik, brez registracije
+      </li>
+      <li class="flex gap-3">
+        <span class="text-amber-500 font-bold">✓</span>
+        Pisna ocena v 24 urah
+      </li>
+      <li class="flex gap-3">
+        <span class="text-amber-500 font-bold">✓</span>
+        Klic samo, če se dejansko splača
+      </li>
+    </ul>
+    <a
+      href={formUrl}
+      target="_blank"
+      rel="noopener"
+      class="inline-block bg-slate-900 hover:bg-slate-800 text-white font-semibold text-lg px-8 py-4 rounded-lg transition"
+    >
+      Izpolni vprašalnik
+    </a>
+    <p class="text-sm text-slate-500 mt-6">
+      Ali raje takoj rezervirate termin?
+      <a href={calendlyUrl} target="_blank" rel="noopener" class="underline hover:text-slate-800">
+        Kliknite tukaj za neposredno rezervacijo.
+      </a>
+    </p>
+  </section>
+
+  <!-- ============ 5. FAQ ============ -->
+  <section class="bg-slate-50 py-20">
+    <div class="max-w-2xl mx-auto px-6">
+      <h2 class="text-2xl md:text-3xl font-bold mb-10 text-center text-slate-900">
+        Pogosta vprašanja
+      </h2>
+      <div class="space-y-8">
+        <div>
+          <h3 class="font-semibold text-lg mb-2">Ali gre za prodajni klic?</h3>
+          <p class="text-slate-600">
+            Ne. Namen vprašalnika je razumeti vaš trenutni proces.
+            Klic predlagamo samo, če iz odgovorov res vidimo smiseln
+            naslednji korak.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg mb-2">Ali morem karkoli namestiti ali povezati?</h3>
+          <p class="text-slate-600">
+            Ne. Za oceno ne potrebujemo dostopa do vaše e-poste,
+            CRM-ja ali telefona — samo vaše odgovore v vprašalniku.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg mb-2">Kaj dobim po izpolnitvi?</h3>
+          <p class="text-slate-600">
+            Kratko e-mail poročilo: tri opažanja o vašem procesu
+            in oceno, kje najverjetneje izgubljate povpraševanja.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-semibold text-lg mb-2">Zakaj je brezplačno?</h3>
+          <p class="text-slate-600">
+            Ker želimo najprej razumeti, ali je problem pri vas
+            dovolj velik, preden karkoli predlagamo.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6. FOOTER CTA ============ -->
+  <section class="bg-slate-900 text-white py-16 text-center">
+    <div class="max-w-xl mx-auto px-6">
+      <h2 class="text-2xl font-bold mb-4">
+        5 minut. Brez obveznosti. Samo odgovori.
+      </h2>
+      <a
+        href={formUrl}
+        target="_blank"
+        rel="noopener"
+        class="inline-block bg-amber-500 hover:bg-amber-400 text-slate-900 font-semibold text-lg px-8 py-4 rounded-lg transition"
+      >
+        Izpolni brezplačni vprašalnik
+      </a>
+    </div>
+  </section>
+
+</Layout>
