@@ -1,6 +1,5 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import { Icon } from 'astro-icon/components';
 ---
 
 <Layout metadata={{ title: "B2B AI Assessment & ROI Kalkulator — AstroWind" }}>
@@ -8,9 +7,6 @@ import { Icon } from 'astro-icon/components';
     <div class="mx-auto max-w-7xl">
       
       <div class="text-center mb-12">
-        <span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 text-sm font-medium text-blue-700 dark:text-blue-300 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-300/10">
-          Celovita B2B AI Analiza
-        </span>
         <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
           Pravi ROI: Prihodki, Stroški in Odgovornost
         </h1>
@@ -43,26 +39,26 @@ import { Icon } from 'astro-icon/components';
               <div class="space-y-6">
                 <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                   <div>
-                    <label for="leads" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko novih povpraševanj prejmete mesečno? <span class="text-red-500">*</span></label>
+                    <label for="leads" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko novih povpraševanj prejmete mesečno? *</label>
                     <input type="number" id="leads" name="Stevilo_Leadov" value="100" min="1" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
                   </div>
                   <div>
-                    <label for="response_time" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko ur traja odgovor na povpraševanje? <span class="text-red-500">*</span></label>
+                    <label for="response_time" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko ur traja odgovor na povpraševanje? *</label>
                     <input type="number" id="response_time" name="Cas_Odgovora" value="4" min="0" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
                   </div>
                 </div>
                 <div>
-                  <label for="value" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Povprečna vrednost vaše storitve/produkta (€)? <span class="text-red-500">*</span></label>
+                  <label for="value" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Povprečna vrednost vaše storitve/produkta (€)? *</label>
                   <input type="number" id="value" name="Povprecna_Vrednost" value="500" min="1" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
                 </div>
                 <div>
-                  <label for="existing_customers" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko AKTIVNIH strank imate trenutno? <span class="text-red-500">*</span></label>
+                  <label for="existing_customers" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko AKTIVNIH strank imate trenutno? *</label>
                   <input type="number" id="existing_customers" name="Stevilo_Strank" value="50" min="0" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
                   <p class="mt-1 text-xs text-gray-500">* Uporablja se za izračun prihodka iz referalov in starih stikov.</p>
                 </div>
               </div>
               <div class="mt-8 flex justify-end">
-                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
+                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej &rarr;</button>
               </div>
             </div>
 
@@ -71,15 +67,15 @@ import { Icon } from 'astro-icon/components';
               <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">2. Trenutni Stroški in Operativa</h2>
               <div class="space-y-6">
                 <div>
-                  <label for="tool_cost" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko mesečno porabite za SaaS orodja (CRM, Klicne centere, Mailchimp...)? <span class="text-red-500">*</span></label>
+                  <label for="tool_cost" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko mesečno porabite za SaaS orodja (CRM, Klicne centere, Mailchimp...)? *</label>
                   <input type="number" id="tool_cost" name="Stroski_Orodij" value="300" min="0" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
                 </div>
                 <div>
-                  <label for="manual_work" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko ur dnevno porabite za ročno vpisovanje podatkov? <span class="text-red-500">*</span></label>
+                  <label for="manual_work" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Koliko ur dnevno porabite za ročno vpisovanje podatkov? *</label>
                   <input type="number" id="manual_work" name="Rocno_Vpisovanje" value="2" min="0" required class="roi-input mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
                 </div>
                 <div>
-                  <label for="crm" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kako trenutno upravljate s stiki? <span class="text-red-500">*</span></label>
+                  <label for="crm" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kako trenutno upravljate s stiki? *</label>
                   <select id="crm" name="Trenutni_CRM" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Excel/Papir">Excel ali papir (največ napak)</option>
@@ -90,8 +86,8 @@ import { Icon } from 'astro-icon/components';
                 </div>
               </div>
               <div class="mt-8 flex justify-between">
-                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
-                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
+                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">&larr; Nazaj</button>
+                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej &rarr;</button>
               </div>
             </div>
 
@@ -100,7 +96,7 @@ import { Icon } from 'astro-icon/components';
               <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">3. Telefonija in Komunikacija</h2>
               <div class="space-y-6">
                 <div>
-                  <label for="voip" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate urejeno lastno telefonsko centralo (FusionPBX)? <span class="text-red-500">*</span></label>
+                  <label for="voip" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate urejeno lastno telefonsko centralo (FusionPBX)? *</label>
                   <select id="voip" name="VoIP_Centrala" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Da, lastno">Da, upravljamo lastno centralo</option>
@@ -109,7 +105,7 @@ import { Icon } from 'astro-icon/components';
                   </select>
                 </div>
                 <div>
-                  <label for="missed_calls" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kaj se zgodi, ko zgrešite klic? <span class="text-red-500">*</span></label>
+                  <label for="missed_calls" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kaj se zgodi, ko zgrešite klic? *</label>
                   <select id="missed_calls" name="Zgreseni_Klici" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Voicemail">Pusti voicemail (pogosto izgubljeno)</option>
@@ -127,8 +123,8 @@ import { Icon } from 'astro-icon/components';
                 </div>
               </div>
               <div class="mt-8 flex justify-between">
-                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
-                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
+                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">&larr; Nazaj</button>
+                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej &rarr;</button>
               </div>
             </div>
 
@@ -137,7 +133,7 @@ import { Icon } from 'astro-icon/components';
               <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">4. Infrastruktura in Varnost</h2>
               <div class="space-y-6">
                 <div>
-                  <label for="hosting" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kje gostujete svojo infrastrukturo? <span class="text-red-500">*</span></label>
+                  <label for="hosting" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Kje gostujete svojo infrastrukturo? *</label>
                   <select id="hosting" name="Hosting" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Lokalni server">Lokalni server v pisarni</option>
@@ -146,7 +142,7 @@ import { Icon } from 'astro-icon/components';
                   </select>
                 </div>
                 <div>
-                  <label for="backup" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate dokumentirano proceduro za backup in restore? <span class="text-red-500">*</span></label>
+                  <label for="backup" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate dokumentirano proceduro za backup in restore? *</label>
                   <select id="backup" name="Backup_Procedura" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Da">Da, redno testiramo restore</option>
@@ -155,7 +151,7 @@ import { Icon } from 'astro-icon/components';
                   </select>
                 </div>
                 <div>
-                  <label for="security" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate urejen security baseline (dostopi, ključi, 2FA)? <span class="text-red-500">*</span></label>
+                  <label for="security" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate urejen security baseline (dostopi, ključi, 2FA)? *</label>
                   <select id="security" name="Security_Baseline" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Da">Da, strogo kontrolirano</option>
@@ -165,8 +161,8 @@ import { Icon } from 'astro-icon/components';
                 </div>
               </div>
               <div class="mt-8 flex justify-between">
-                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
-                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
+                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">&larr; Nazaj</button>
+                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej &rarr;</button>
               </div>
             </div>
 
@@ -175,7 +171,7 @@ import { Icon } from 'astro-icon/components';
               <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">5. Pogodbe, SLA in GDPR</h2>
               <div class="space-y-6">
                 <div>
-                  <label for="dpa" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate urejene pogodbe o obdelavi podatkov (DPA)? <span class="text-red-500">*</span></label>
+                  <label for="dpa" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate urejene pogodbe o obdelavi podatkov (DPA)? *</label>
                   <select id="dpa" name="DPA_Pogodbe" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Da">Da, za vse ponudnike</option>
@@ -184,7 +180,7 @@ import { Icon } from 'astro-icon/components';
                   </select>
                 </div>
                 <div>
-                  <label for="retention" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate jasne retention roke za posnetke in loge? <span class="text-red-500">*</span></label>
+                  <label for="retention" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate jasne retention roke za posnetke in loge? *</label>
                   <select id="retention" name="Retention_Roke" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Da">Da, imamo politiko hrambe</option>
@@ -199,7 +195,7 @@ import { Icon } from 'astro-icon/components';
                   </select>
                 </div>
                 <div>
-                  <label for="sla" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate pogodbeno določen SLA in incidentni proces? <span class="text-red-500">*</span></label>
+                  <label for="sla" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ali imate pogodbeno določen SLA in incidentni proces? *</label>
                   <select id="sla" name="SLA_Incident" required class="mt-2 block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
                     <option value="" disabled selected>-- Izberite --</option>
                     <option value="Jasen SLA">Da, imamo jasen SLA</option>
@@ -209,8 +205,8 @@ import { Icon } from 'astro-icon/components';
                 </div>
               </div>
               <div class="mt-8 flex justify-between">
-                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
-                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
+                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">&larr; Nazaj</button>
+                <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej &rarr;</button>
               </div>
             </div>
 
@@ -221,7 +217,7 @@ import { Icon } from 'astro-icon/components';
               
               <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
                 <div>
-                  <label for="first-name" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ime in priimek <span class="text-red-500">*</span></label>
+                  <label for="first-name" class="block text-sm font-medium text-gray-900 dark:text-slate-200">Ime in priimek *</label>
                   <input type="text" id="first-name" name="Ime_in_priimek" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="Janez Novak" />
                 </div>
                 <div>
@@ -231,7 +227,7 @@ import { Icon } from 'astro-icon/components';
               </div>
               <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2 mt-6">
                 <div>
-                  <label for="email" class="block text-sm font-medium text-gray-900 dark:text-slate-200">E-pošta <span class="text-red-500">*</span></label>
+                  <label for="email" class="block text-sm font-medium text-gray-900 dark:text-slate-200">E-pošta *</label>
                   <input type="email" id="email" name="E-posta" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="janez@podjetje.si" />
                 </div>
                 <div>
@@ -241,8 +237,8 @@ import { Icon } from 'astro-icon/components';
               </div>
 
               <div class="mt-8 flex justify-between">
-                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
-                <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-green-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-500 transition-colors">Generiraj PDF poročilo <Icon name="tabler:check" class="w-4 h-4" /></button>
+                <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors">&larr; Nazaj</button>
+                <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-green-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-500 transition-colors">Generiraj PDF poročilo &check;</button>
               </div>
             </div>
 
@@ -255,16 +251,15 @@ import { Icon } from 'astro-icon/components';
             <h2 class="text-xl font-bold mb-6">Celovit letni ROI</h2>
             
             <div class="space-y-6">
-              <!-- A. PRIHODKI -->
               <div>
                 <h3 class="text-sm font-bold text-green-400 uppercase tracking-wider mb-3 border-b border-slate-700 pb-2">A. Povečani Prihodki</h3>
                 <div class="space-y-3 text-sm">
                   <div class="flex justify-between">
-                    <span class="text-slate-400">Povrnjeni izgubljeni leadi (hitrost)</span>
+                    <span class="text-slate-400">Povrnjeni izgubljeni leadi</span>
                     <span id="rev-leads" class="font-bold text-green-400">0 €</span>
                   </div>
                   <div class="flex justify-between">
-                    <span class="text-slate-400">Referali in stiki (zadovoljstvo)</span>
+                    <span class="text-slate-400">Referali in stiki</span>
                     <span id="rev-referrals" class="font-bold text-green-400">0 €</span>
                   </div>
                   <div class="flex justify-between pt-2 border-t border-slate-800">
@@ -274,7 +269,6 @@ import { Icon } from 'astro-icon/components';
                 </div>
               </div>
 
-              <!-- B. STROŠKI -->
               <div>
                 <h3 class="text-sm font-bold text-blue-400 uppercase tracking-wider mb-3 border-b border-slate-700 pb-2">B. Zmanjšani Stroški</h3>
                 <div class="space-y-3 text-sm">
@@ -283,11 +277,11 @@ import { Icon } from 'astro-icon/components';
                     <span id="sav-tools" class="font-bold text-blue-400">0 €</span>
                   </div>
                   <div class="flex justify-between">
-                    <span class="text-slate-400">Prihranjen čas (avtomatizacija)</span>
+                    <span class="text-slate-400">Prihranjen čas</span>
                     <span id="sav-time" class="font-bold text-blue-400">0 €</span>
                   </div>
                   <div class="flex justify-between">
-                    <span class="text-slate-400">Manj napak & bolniški (uptime)</span>
+                    <span class="text-slate-400">Manj napak & bolniški</span>
                     <span id="sav-errors" class="font-bold text-blue-400">0 €</span>
                   </div>
                   <div class="flex justify-between pt-2 border-t border-slate-800">
@@ -297,7 +291,6 @@ import { Icon } from 'astro-icon/components';
                 </div>
               </div>
 
-              <!-- C. KONČNI ROI -->
               <div class="bg-slate-800 p-4 rounded-lg">
                 <div class="flex justify-between text-sm mb-2">
                   <span class="text-slate-400">Letni strošek AI sistema</span>
@@ -341,13 +334,13 @@ import { Icon } from 'astro-icon/components';
       });
       const percent = Math.round((currentStep / totalSteps) * 100);
       progressBars.style.width = percent + '%';
-      stepText.textContent = `Korak ${currentStep} od ${totalSteps}`;
+      stepText.textContent = 'Korak ' + currentStep + ' od ' + totalSteps;
       stepPercent.textContent = percent + '%';
     }
 
     document.querySelectorAll('.next-btn').forEach(button => {
       button.addEventListener('click', () => {
-        const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+        const currentStepElement = document.querySelector('.form-step[data-step="' + currentStep + '"]');
         const requiredInputs = currentStepElement.querySelectorAll('[required]');
         let isValid = true;
         requiredInputs.forEach(input => {
@@ -479,6 +472,7 @@ import { Icon } from 'astro-icon/components';
       };
 
       try {
+        // TUKAJ VNESI SVOJ WEBHOOK URL
         const response = await fetch('TVOJ_WEBHOOK_URL', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
