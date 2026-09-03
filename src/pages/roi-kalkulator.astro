@@ -1,0 +1,212 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import { Icon } from 'astro-icon/components';
+
+// Tukaj boš vnesel URL svojega Webhooka (Windmill ali Make.com), ki bo generiral PDF in poslal mail
+const webhookUrl = "https://windmill.tvojadomena.si/api/run/u/v1/generate_roi_pdf";
+---
+
+<Layout metadata={{ title: "ROI Kalkulator — Zasebni AI sistemi za B2B" }}>
+  <section class="px-4 py-16 sm:py-20">
+    <div class="mx-auto max-w-4xl">
+      
+      <!-- Glava -->
+      <div class="text-center mb-12">
+        <span class="inline-flex items-center rounded-md bg-blue-50 dark:bg-blue-900/20 px-3 py-1.5 text-sm font-medium text-blue-700 dark:text-blue-300 ring-1 ring-inset ring-blue-700/10 dark:ring-blue-300/10">
+          B2B AI Lifecycle System
+        </span>
+        <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
+          Izračunajte donosnost (ROI) avtomatizacije
+        </h1>
+        <p class="mt-4 text-lg leading-8 text-gray-600 dark:text-slate-400">
+          Vsak neodgovorjen kontakt stane denar. Izračunajte, koliko prihranite in zaslužite z zasebnim AI sistemom za upravljanje celotne poti stranke.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- LEVA STRAN: VNOSNI PODATKI -->
+        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 p-8">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Vaša trenutna situacija</h2>
+          
+          <form id="roi-form" class="space-y-6">
+            <div>
+              <label for="leads" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Koliko novih povpraševanj (leadov) prejmete mesečno?</label>
+              <input type="number" id="leads" name="leads" value="100" min="1" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+            </div>
+
+            <div>
+              <label for="value" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Povprečna vrednost vaše storitve/produkta (€)?</label>
+              <input type="number" id="value" name="value" value="500" min="1" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+            </div>
+
+            <div>
+              <label for="response_time" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Koliko ur v povprečju traja, da odgovorite na povpraševanje?</label>
+              <input type="number" id="response_time" name="response_time" value="4" min="0" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+              <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">* Študije kažejo, da odgovor po 1 uri zmanjša možnost konverzije za 80%.</p>
+            </div>
+
+            <hr class="border-slate-200 dark:border-slate-700" />
+
+            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Prejmite podroben izračun na mail</h3>
+            
+            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
+              <div>
+                <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Ime in priimek <span class="text-red-500">*</span></label>
+                <input type="text" id="first-name" name="first_name" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="Janez Novak" />
+              </div>
+              <div>
+                <label for="email" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">E-pošta <span class="text-red-500">*</span></label>
+                <input type="email" id="email" name="email" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="janez@podjetje.si" />
+              </div>
+            </div>
+
+            <div>
+              <label for="phone" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Telefonska številka <span class="text-gray-400 text-xs">(neobvezno)</span></label>
+              <input type="tel" id="phone" name="phone" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="+386 40 123 456" />
+            </div>
+
+            <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors duration-200">
+              Generiraj in pošlji PDF poročilo <Icon name="tabler:file-download" class="w-4 h-4" />
+            </button>
+            <p class="text-xs text-center text-gray-500 dark:text-slate-400">
+              Z oddajo zahtevka se strinjate z obdelavo podatkov v skladu s politiko zasebnosti.
+            </p>
+          </form>
+        </div>
+
+        <!-- DESNA STRAN: REZULTATI (Live) -->
+        <div class="bg-slate-900 dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-8 text-white flex flex-col justify-center sticky top-8 h-fit">
+          <h2 class="text-xl font-bold mb-6">Vaš potencialni letni prihranek</h2>
+          
+          <div class="space-y-6">
+            <div>
+              <p class="text-sm text-slate-400">Izgubljeni leadi zaradi počasnega odgovora</p>
+              <p id="lost-leads" class="text-3xl font-bold text-red-400">0 leadov/leto</p>
+            </div>
+            
+            <div>
+              <p class="text-sm text-slate-400">Povečana konverzija z AI takojšnjim odgovorom</p>
+              <p id="extra-revenue" class="text-3xl font-bold text-green-400">0 €/leto</p>
+            </div>
+
+            <div class="pt-6 border-t border-slate-700">
+              <p class="text-sm text-slate-400">Prihranjen čas operativne ekipe</p>
+              <p id="saved-hours" class="text-3xl font-bold text-blue-400">0 ur/leto</p>
+            </div>
+
+            <div class="mt-8 bg-slate-800 p-4 rounded-lg">
+              <p class="text-sm text-slate-400">Ocenjen skupni ROI uvajanja sistema</p>
+              <p id="total-roi" class="text-5xl font-extrabold text-white">0 €</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Podporni tekst (Positioning) -->
+      <div class="mt-16 max-w-3xl mx-auto text-center">
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Zakaj izbrati naš pristop?</h3>
+        <p class="mt-4 text-gray-600 dark:text-slate-400">
+          Sistem je postavljen po standardiziranem modelu in ima dokumentiran backup, monitoring in support proces. Za specializirana področja po potrebi vključujemo preverjene tehnične partnerje. Ne gradimo na improvizaciji, temveč na merljivih rezultatih, jasni pogodbi in SLA ter popolni kontroli vaših podatkov.
+        </p>
+      </div>
+
+    </div>
+  </section>
+</Layout>
+
+<!-- JavaScript za live izračun in webhook -->
+<script is:inline>
+  const form = document.getElementById('roi-form');
+  const leadsInput = document.getElementById('leads');
+  const valueInput = document.getElementById('value');
+  const responseTimeInput = document.getElementById('response_time');
+
+  const lostLeadsEl = document.getElementById('lost-leads');
+  const extraRevenueEl = document.getElementById('extra-revenue');
+  const savedHoursEl = document.getElementById('saved-hours');
+  const totalRoiEl = document.getElementById('total-roi');
+
+  function formatCurrency(num) {
+    return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(num);
+  }
+
+  function calculateROI() {
+    const leads = parseFloat(leadsInput.value) || 0;
+    const value = parseFloat(valueInput.value) || 0;
+    const responseTime = parseFloat(responseTimeInput.value) || 0;
+
+    // Preprosta formula za prikaz: 
+    // Če odgovor traja več kot 1 uro, izgubimo 50% leadov. AI odgovori v 1 minuti.
+    let lostRate = 0;
+    if (responseTime > 1) {
+      lostRate = Math.min(0.8, (responseTime - 1) * 0.1); // Povečuje se s časom, max 80%
+    }
+    
+    const monthlyLostLeads = leads * lostRate;
+    const annualLostLeads = monthlyLostLeads * 12;
+    
+    const annualExtraRevenue = annualLostLeads * value;
+    
+    // Predpostavimo, da AI prihrani 5 minut na lead za operativno ekipo (vrednost 20€/uro)
+    const annualSavedHours = leads * 12 * (5 / 60);
+    const annualSavedMoney = annualSavedHours * 20;
+
+    const totalRoi = annualExtraRevenue + annualSavedMoney;
+
+    lostLeadsEl.textContent = Math.round(annualLostLeads) + ' leadov/leto';
+    extraRevenueEl.textContent = formatCurrency(annualExtraRevenue);
+    savedHoursEl.textContent = Math.round(annualSavedHours) + ' ur/leto';
+    totalRoiEl.textContent = formatCurrency(totalRoi);
+  }
+
+  // Live posodabljanje rezultatov medtipkanjem
+  [leadsInput, valueInput, responseTimeInput].forEach(input => {
+    input.addEventListener('input', calculateROI);
+  });
+
+  // Ob submitu pošljemo podatke v Windmill/Make za generiranje PDF-ja
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = form.querySelector('button[type="submit"]');
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Generiram poročilo...';
+
+    const payload = {
+      first_name: document.getElementById('first-name').value,
+      email: document.getElementById('email').value,
+      phone: document.getElementById('phone').value,
+      leads: leadsInput.value,
+      value: valueInput.value,
+      response_time: responseTimeInput.value,
+      roi_result: totalRoiEl.innerText // Pošljemo tudi končni znesek
+    };
+
+    try {
+      // Kličemo Windmill webhook
+      const response = await fetch('TVOJ_WEBHOOK_URL', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok) {
+        alert('Hvala! PDF poročilo vam bomo poslali na navedeni e-mail v naslednjih nekaj minutah.');
+        form.reset();
+      } else {
+        alert('Prišlo je do napake. Prosimo, poskusite kasneje.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('Napaka povezave.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerText = 'Generiraj in pošlji PDF poročilo';
+    }
+  });
+
+  // Inicializacija izračuna ob nalaganju strani
+  calculateROI();
+</script>
