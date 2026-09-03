@@ -2,13 +2,13 @@
 import Layout from '~/layouts/PageLayout.astro';
 import { Icon } from 'astro-icon/components';
 
-// Tukaj boš vnesel URL svojega Webhooka (Windmill ali Make.com), ki bo generiral PDF in poslal mail
+// Tukaj vnesi URL svojega Webhooka (Windmill ali Make.com) za generiranje PDF-ja
 const webhookUrl = "https://windmill.tvojadomena.si/api/run/u/v1/generate_roi_pdf";
 ---
 
-<Layout metadata={{ title: "ROI Kalkulator — Zasebni AI sistemi za B2B" }}>
+<Layout metadata={{ title: "B2B AI Assessment & ROI Kalkulator — AstroWind" }}>
   <section class="px-4 py-16 sm:py-20">
-    <div class="mx-auto max-w-4xl">
+    <div class="mx-auto max-w-3xl">
       
       <!-- Glava -->
       <div class="text-center mb-12">
@@ -16,154 +16,271 @@ const webhookUrl = "https://windmill.tvojadomena.si/api/run/u/v1/generate_roi_pd
           B2B AI Lifecycle System
         </span>
         <h1 class="mt-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-4xl">
-          Izračunajte donosnost (ROI) avtomatizacije
+          Analiza pripravljenosti na AI in izračun ROI
         </h1>
         <p class="mt-4 text-lg leading-8 text-gray-600 dark:text-slate-400">
-          Vsak neodgovorjen kontakt stane denar. Izračunajte, koliko prihranite in zaslužite z zasebnim AI sistemom za upravljanje celotne poti stranke.
+          Sistematično preverimo, kje vaše podjetje stoji glede avtomatizacije, infrastrukture in varnosti. Na koncu vam generiramo PDF s prihranki in naslednjimi koraki.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 p-8 sm:p-10">
         
-        <!-- LEVA STRAN: VNOSNI PODATKI -->
-        <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 p-8">
-          <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Vaša trenutna situacija</h2>
+        <!-- Napredek (Progress bar) -->
+        <div class="mb-8">
+          <div class="flex justify-between mb-2 text-xs font-medium text-gray-500 dark:text-slate-400">
+            <span id="step-text">Korak 1 od 5</span>
+            <span id="step-percent">20%</span>
+          </div>
+          <div class="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2.5">
+            <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full transition-all duration-500" style="width: 20%"></div>
+          </div>
+        </div>
+
+        <form id="multi-step-form" class="space-y-6">
           
-          <form id="roi-form" class="space-y-6">
-            <div>
-              <label for="leads" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Koliko novih povpraševanj (leadov) prejmete mesečno?</label>
-              <input type="number" id="leads" name="leads" value="100" min="1" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+          <!-- SKRITI PODATKI ZA WEBHOOK -->
+          <input type="hidden" name="subject" value="Novo B2B AI Assessment povpraševanje" />
+
+          <!-- KORAK 1: Trenutni procesi -->
+          <div class="form-step" data-step="1">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">1. Vaši trenutni procesi</h2>
+            <div class="space-y-6">
+              <div>
+                <label for="leads" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Koliko novih povpraševanj (leadov) prejmete mesečno? <span class="text-red-500">*</span></label>
+                <input type="number" id="leads" name="Stevilo_Leadov" value="100" min="1" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+              </div>
+              <div>
+                <label for="response_time" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Koliko ur v povprečju traja, da odgovorite na povpraševanje? <span class="text-red-500">*</span></label>
+                <input type="number" id="response_time" name="Cas_Odgovora" value="4" min="0" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+              </div>
+              <div>
+                <label for="crm" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Kako trenutno upravljate s stiki (CRM)? <span class="text-red-500">*</span></label>
+                <div class="relative mt-2">
+                  <select id="crm" name="Trenutni_CRM" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Prosimo, izberite --</option>
+                    <option value="Excel/Papir">Excel ali papir</option>
+                    <option value="Brez CRM-a">Še nimamo urejenega CRM-a</option>
+                    <option value="EspoCRM">EspoCRM</option>
+                    <option value="Drugi SaaS">Drugi SaaS (HubSpot, Pipedrive...)</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"><Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" /></div>
+                </div>
+              </div>
             </div>
-
-            <div>
-              <label for="value" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Povprečna vrednost vaše storitve/produkta (€)?</label>
-              <input type="number" id="value" name="value" value="500" min="1" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+            <div class="mt-8 flex justify-end">
+              <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
             </div>
+          </div>
 
-            <div>
-              <label for="response_time" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Koliko ur v povprečju traja, da odgovorite na povpraševanje?</label>
-              <input type="number" id="response_time" name="response_time" value="4" min="0" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
-              <p class="mt-1 text-xs text-gray-500 dark:text-slate-400">* Študije kažejo, da odgovor po 1 uri zmanjša možnost konverzije za 80%.</p>
+          <!-- KORAK 2: Infrastruktura & Komunikacija -->
+          <div class="form-step hidden" data-step="2">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">2. Infrastruktura & Telefonija</h2>
+            <div class="space-y-6">
+              <div>
+                <label for="voip" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Ali imate urejeno lastno telefonsko centralo (VoIP/FusionPBX)? <span class="text-red-500">*</span></label>
+                <div class="relative mt-2">
+                  <select id="voip" name="VoIP_Centrala" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Prosimo, izberite --</option>
+                    <option value="Da, lastno">Da, upravljamo lastno centralo</option>
+                    <option value="Ne, outsourced">Ne, imamo zunanjega ponudnika</option>
+                    <option value="Samo mobilni">Uporabljamo samo mobilne številke</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"><Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" /></div>
+                </div>
+              </div>
+              <div>
+                <label for="missed_calls" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Kaj se zgodi, ko zgrešite klic? <span class="text-red-500">*</span></label>
+                <div class="relative mt-2">
+                  <select id="missed_calls" name="Zgrešeni_Klici" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Prosimo, izberite --</option>
+                    <option value="Voicemail">Pusti voicemail, ki se ročno obdela</option>
+                    <option value="Nazaj">Operater pokliče nazaj, ko ima čas</option>
+                    <option value="AI Transkripcija">Že imamo AI transkripcijo in obvestila</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"><Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" /></div>
+                </div>
+              </div>
+              <div>
+                <label for="manual_work" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Koliko ur dnevno poravite za ročno vpisovanje podatkov? <span class="text-red-500">*</span></label>
+                <input type="number" id="manual_work" name="Rocno_Vpisovanje" value="2" min="0" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+              </div>
             </div>
+            <div class="mt-8 flex justify-between">
+              <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
+              <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
+            </div>
+          </div>
 
-            <hr class="border-slate-200 dark:border-slate-700" />
+          <!-- KORAK 3: Varnost & Skrbništvo (DPA, SLA) -->
+          <div class="form-step hidden" data-step="3">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">3. Varnost in skrbništvo</h2>
+            <div class="space-y-6">
+              <div>
+                <label for="dpa" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Ali imate urejene pogodbe o obdelavi podatkov (DPA)? <span class="text-red-500">*</span></label>
+                <div class="relative mt-2">
+                  <select id="dpa" name="DPA_Pogodbe" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Prosimo, izberite --</option>
+                    <option value="Da">Da, za vse pod-obdelovalce (Hetzner, Cloudflare...)</option>
+                    <option value="Delno">Delno, nismo povsem pokriti</option>
+                    <option value="Ne">Ne, to moramo še urediti</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"><Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" /></div>
+                </div>
+              </div>
+              <div>
+                <label for="backup" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Ali imate dokumentirano proceduro za backup in restore? <span class="text-red-500">*</span></label>
+                <div class="relative mt-2">
+                  <select id="backup" name="Backup_Procedura" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Prosimo, izberite --</option>
+                    <option value="Da">Da, redno testiramo restore</option>
+                    <option value="Samodejno">Imamo samodejne backupe, a jih ne preverjamo</option>
+                    <option value="Ne">Ne, to je naše šibko mesto</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"><Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" /></div>
+                </div>
+              </div>
+              <div>
+                <label for="sla" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Kako je urejena podpora (SLA) ob izpadu sistema? <span class="text-red-500">*</span></label>
+                <div class="relative mt-2">
+                  <select id="sla" name="SLA_Podpora" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Prosimo, izberite --</option>
+                    <option value="Jasen SLA">Imamo jasen SLA in odzivne čase</option>
+                    <option value="Ad hoc">Rešujemo ad hoc, ko pride do težav</option>
+                    <option value="Brez">Zanašamo se na srečo</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"><Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" /></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-8 flex justify-between">
+              <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
+              <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
+            </div>
+          </div>
 
-            <h3 class="text-lg font-bold text-gray-900 dark:text-white">Prejmite podroben izračun na mail</h3>
+          <!-- KORAK 4: Pripravljenost na AI -->
+          <div class="form-step hidden" data-step="4">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">4. AI in rast</h2>
+            <div class="space-y-6">
+              <div>
+                <label for="value" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Povprečna vrednost vaše storitve/produkta (€)? <span class="text-red-500">*</span></label>
+                <input type="number" id="value" name="Povprecna_Vrednost" value="500" min="1" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" />
+              </div>
+              <div>
+                <label for="ai_rag" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Ali bi želeli, da AI samodejno odgovarja na pogosta vprašanja (RAG)? <span class="text-red-500">*</span></label>
+                <div class="relative mt-2">
+                  <select id="ai_rag" name="AI_RAG" required class="block w-full rounded-md border-0 py-3 pl-3 pr-10 text-gray-900 dark:bg-slate-900 dark:text-white ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600 appearance-none">
+                    <option value="" disabled selected>-- Prosimo, izberite --</option>
+                    <option value="Da">Da, to bi zmanjšalo obremenitev ekipe</option>
+                    <option value="Morda">Morda, potrebujem več informacij</option>
+                    <option value="Ne">Ne, imamo dovolj s človeško podporo</option>
+                  </select>
+                  <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3"><Icon name="tabler:chevron-down" class="h-5 w-5 text-gray-400" /></div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-8 flex justify-between">
+              <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
+              <button type="button" class="next-btn inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors">Naprej <Icon name="tabler:arrow-right" class="w-4 h-4" /></button>
+            </div>
+          </div>
+
+          <!-- KORAK 5: Kontaktne podrobnosti in oddaja -->
+          <div class="form-step hidden" data-step="5">
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-6">5. Prejmite analizo in PDF</h2>
+            <p class="text-sm text-gray-500 dark:text-slate-400 mb-6">Na podlagi vaših odgovorov vam bomo na e-mail samodejno poslali PDF s konkretnim izračunom prihranka in predlogom naslednjih korakov.</p>
             
             <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2">
               <div>
                 <label for="first-name" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Ime in priimek <span class="text-red-500">*</span></label>
-                <input type="text" id="first-name" name="first_name" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="Janez Novak" />
+                <input type="text" id="first-name" name="Ime_in_priimek" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="Janez Novak" />
               </div>
               <div>
+                <label for="company" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Podjetje <span class="text-gray-400 text-xs">(neobvezno)</span></label>
+                <input type="text" id="company" name="Podjetje" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="Nova Oprema d.o.o." />
+              </div>
+            </div>
+            <div class="grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-2 mt-6">
+              <div>
                 <label for="email" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">E-pošta <span class="text-red-500">*</span></label>
-                <input type="email" id="email" name="email" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="janez@podjetje.si" />
+                <input type="email" id="email" name="E-posta" required class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="janez@podjetje.si" />
+              </div>
+              <div>
+                <label for="phone" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Telefonska številka <span class="text-gray-400 text-xs">(neobvezno)</span></label>
+                <input type="tel" id="phone" name="Telefon" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="+386 40 123 456" />
               </div>
             </div>
 
-            <div>
-              <label for="phone" class="block text-sm font-medium leading-6 text-gray-900 dark:text-slate-200">Telefonska številka <span class="text-gray-400 text-xs">(neobvezno)</span></label>
-              <input type="tel" id="phone" name="phone" class="mt-2 block w-full rounded-md border-0 py-2.5 text-gray-900 dark:bg-slate-900 dark:text-white shadow-sm ring-1 ring-inset ring-gray-300 dark:ring-slate-600 focus:ring-2 focus:ring-inset focus:ring-blue-600" placeholder="+386 40 123 456" />
-            </div>
-
-            <button type="submit" class="w-full inline-flex items-center justify-center gap-2 rounded-md bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 transition-colors duration-200">
-              Generiraj in pošlji PDF poročilo <Icon name="tabler:file-download" class="w-4 h-4" />
-            </button>
-            <p class="text-xs text-center text-gray-500 dark:text-slate-400">
-              Z oddajo zahtevka se strinjate z obdelavo podatkov v skladu s politiko zasebnosti.
-            </p>
-          </form>
-        </div>
-
-        <!-- DESNA STRAN: REZULTATI (Live) -->
-        <div class="bg-slate-900 dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-800 p-8 text-white flex flex-col justify-center sticky top-8 h-fit">
-          <h2 class="text-xl font-bold mb-6">Vaš potencialni letni prihranek</h2>
-          
-          <div class="space-y-6">
-            <div>
-              <p class="text-sm text-slate-400">Izgubljeni leadi zaradi počasnega odgovora</p>
-              <p id="lost-leads" class="text-3xl font-bold text-red-400">0 leadov/leto</p>
-            </div>
-            
-            <div>
-              <p class="text-sm text-slate-400">Povečana konverzija z AI takojšnjim odgovorom</p>
-              <p id="extra-revenue" class="text-3xl font-bold text-green-400">0 €/leto</p>
-            </div>
-
-            <div class="pt-6 border-t border-slate-700">
-              <p class="text-sm text-slate-400">Prihranjen čas operativne ekipe</p>
-              <p id="saved-hours" class="text-3xl font-bold text-blue-400">0 ur/leto</p>
-            </div>
-
-            <div class="mt-8 bg-slate-800 p-4 rounded-lg">
-              <p class="text-sm text-slate-400">Ocenjen skupni ROI uvajanja sistema</p>
-              <p id="total-roi" class="text-5xl font-extrabold text-white">0 €</p>
+            <div class="mt-8 flex justify-between">
+              <button type="button" class="prev-btn inline-flex items-center justify-center gap-2 rounded-md bg-gray-200 dark:bg-slate-700 px-6 py-3 text-sm font-semibold text-gray-900 dark:text-white shadow-sm hover:bg-gray-300 dark:hover:bg-slate-600 transition-colors"><Icon name="tabler:arrow-left" class="w-4 h-4" /> Nazaj</button>
+              <button type="submit" class="inline-flex items-center justify-center gap-2 rounded-md bg-green-600 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-green-500 transition-colors">Generiraj PDF poročilo <Icon name="tabler:check" class="w-4 h-4" /></button>
             </div>
           </div>
-        </div>
 
-      </div>
-
-      <!-- Podporni tekst (Positioning) -->
-      <div class="mt-16 max-w-3xl mx-auto text-center">
-        <h3 class="text-2xl font-bold text-gray-900 dark:text-white">Zakaj izbrati naš pristop?</h3>
-        <p class="mt-4 text-gray-600 dark:text-slate-400">
-          Sistem je postavljen po standardiziranem modelu in ima dokumentiran backup, monitoring in support proces. Za specializirana področja po potrebi vključujemo preverjene tehnične partnerje. Ne gradimo na improvizaciji, temveč na merljivih rezultatih, jasni pogodbi in SLA ter popolni kontroli vaših podatkov.
-        </p>
+        </form>
       </div>
 
     </div>
   </section>
 </Layout>
 
-<!-- JavaScript za live izračun in webhook -->
+<!-- JavaScript za upravljanje korakov in webhook -->
 <script is:inline>
-  const form = document.getElementById('roi-form');
-  const leadsInput = document.getElementById('leads');
-  const valueInput = document.getElementById('value');
-  const responseTimeInput = document.getElementById('response_time');
+  const form = document.getElementById('multi-step-form');
+  const steps = document.querySelectorAll('.form-step');
+  const progressBars = document.getElementById('progress-bar');
+  const stepText = document.getElementById('step-text');
+  const stepPercent = document.getElementById('step-percent');
+  let currentStep = 1;
+  const totalSteps = steps.length;
 
-  const lostLeadsEl = document.getElementById('lost-leads');
-  const extraRevenueEl = document.getElementById('extra-revenue');
-  const savedHoursEl = document.getElementById('saved-hours');
-  const totalRoiEl = document.getElementById('total-roi');
+  function updateUI() {
+    steps.forEach(step => {
+      if (parseInt(step.dataset.step) === currentStep) {
+        step.classList.remove('hidden');
+      } else {
+        step.classList.add('hidden');
+      }
+    });
 
-  function formatCurrency(num) {
-    return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(num);
+    const percent = Math.round((currentStep / totalSteps) * 100);
+    progressBars.style.width = percent + '%';
+    stepText.textContent = `Korak ${currentStep} od ${totalSteps}`;
+    stepPercent.textContent = percent + '%';
   }
 
-  function calculateROI() {
-    const leads = parseFloat(leadsInput.value) || 0;
-    const value = parseFloat(valueInput.value) || 0;
-    const responseTime = parseFloat(responseTimeInput.value) || 0;
+  document.querySelectorAll('.next-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      const currentStepElement = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+      const requiredInputs = currentStepElement.querySelectorAll('[required]');
+      let isValid = true;
 
-    // Preprosta formula za prikaz: 
-    // Če odgovor traja več kot 1 uro, izgubimo 50% leadov. AI odgovori v 1 minuti.
-    let lostRate = 0;
-    if (responseTime > 1) {
-      lostRate = Math.min(0.8, (responseTime - 1) * 0.1); // Povečuje se s časom, max 80%
-    }
-    
-    const monthlyLostLeads = leads * lostRate;
-    const annualLostLeads = monthlyLostLeads * 12;
-    
-    const annualExtraRevenue = annualLostLeads * value;
-    
-    // Predpostavimo, da AI prihrani 5 minut na lead za operativno ekipo (vrednost 20€/uro)
-    const annualSavedHours = leads * 12 * (5 / 60);
-    const annualSavedMoney = annualSavedHours * 20;
+      requiredInputs.forEach(input => {
+        if (!input.value) {
+          isValid = false;
+          input.classList.add('ring-red-500');
+          input.reportValidity();
+        } else {
+          input.classList.remove('ring-red-500');
+        }
+      });
 
-    const totalRoi = annualExtraRevenue + annualSavedMoney;
+      if (isValid && currentStep < totalSteps) {
+        currentStep++;
+        updateUI();
+        window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+      }
+    });
+  });
 
-    lostLeadsEl.textContent = Math.round(annualLostLeads) + ' leadov/leto';
-    extraRevenueEl.textContent = formatCurrency(annualExtraRevenue);
-    savedHoursEl.textContent = Math.round(annualSavedHours) + ' ur/leto';
-    totalRoiEl.textContent = formatCurrency(totalRoi);
-  }
-
-  // Live posodabljanje rezultatov medtipkanjem
-  [leadsInput, valueInput, responseTimeInput].forEach(input => {
-    input.addEventListener('input', calculateROI);
+  document.querySelectorAll('.prev-btn').forEach(button => {
+    button.addEventListener('click', () => {
+      if (currentStep > 1) {
+        currentStep--;
+        updateUI();
+        window.scrollTo({ top: form.offsetTop - 100, behavior: 'smooth' });
+      }
+    });
   });
 
   // Ob submitu pošljemo podatke v Windmill/Make za generiranje PDF-ja
@@ -174,18 +291,27 @@ const webhookUrl = "https://windmill.tvojadomena.si/api/run/u/v1/generate_roi_pd
     submitBtn.disabled = true;
     submitBtn.innerText = 'Generiram poročilo...';
 
-    const payload = {
-      first_name: document.getElementById('first-name').value,
-      email: document.getElementById('email').value,
-      phone: document.getElementById('phone').value,
-      leads: leadsInput.value,
-      value: valueInput.value,
-      response_time: responseTimeInput.value,
-      roi_result: totalRoiEl.innerText // Pošljemo tudi končni znesek
+    // Zberemo vsa polja
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData);
+
+    // Dodamo še izračun za PDF (na podlagi korakov 1 in 4)
+    const leads = parseFloat(payload.Stevilo_Leadov) || 0;
+    const responseTime = parseFloat(payload.Cas_Odgovora) || 0;
+    const value = parseFloat(payload.Povprecna_Vrednost) || 0;
+    
+    let lostRate = 0;
+    if (responseTime > 1) lostRate = Math.min(0.8, (responseTime - 1) * 0.1);
+    const annualLostRevenue = (leads * lostRate) * 12 * value;
+    const annualSavedHours = (leads * 12) * (5 / 60);
+    
+    payload.Izracun_Prihranka = {
+      izgubljeni_leadov_letno: Math.round(leads * lostRate * 12),
+      izgubljeni_dohodek_letno: annualLostRevenue,
+      prihranjen_cas_letno_ur: Math.round(annualSavedHours)
     };
 
     try {
-      // Kličemo Windmill webhook
       const response = await fetch('TVOJ_WEBHOOK_URL', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -195,18 +321,17 @@ const webhookUrl = "https://windmill.tvojadomena.si/api/run/u/v1/generate_roi_pd
       if (response.ok) {
         alert('Hvala! PDF poročilo vam bomo poslali na navedeni e-mail v naslednjih nekaj minutah.');
         form.reset();
+        currentStep = 1;
+        updateUI();
       } else {
-        alert('Prišlo je do napake. Prosimo, poskusite kasneje.');
+        alert('Prišlo je do napake pri pošiljanju. Prosimo, poskusite kasneje.');
       }
     } catch (error) {
       console.error('Error:', error);
-      alert('Napaka povezave.');
+      alert('Napaka povezave s strežnikom.');
     } finally {
       submitBtn.disabled = false;
-      submitBtn.innerText = 'Generiraj in pošlji PDF poročilo';
+      submitBtn.innerHTML = 'Generiraj PDF poročilo <Icon name="tabler:check" class="w-4 h-4" />';
     }
   });
-
-  // Inicializacija izračuna ob nalaganju strani
-  calculateROI();
 </script>
